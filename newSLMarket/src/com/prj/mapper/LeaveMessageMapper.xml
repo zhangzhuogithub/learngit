@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.prj.mapper.LeaveMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.prj.bean.LeaveMessage" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="createdBy" property="createdby" jdbcType="VARCHAR" />
+    <result column="messageCode" property="messagecode" jdbcType="VARCHAR" />
+    <result column="messageTitle" property="messagetitle" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.prj.bean.LeaveMessage" extends="BaseResultMap" >
+    <result column="messageContent" property="messagecontent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, createdBy, messageCode, messageTitle, state, createTime
+  </sql>
+  <sql id="Blob_Column_List" >
+    messageContent
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from leave_message
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from leave_message
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.prj.bean.LeaveMessage" >
+    insert into leave_message (id, createdBy, messageCode, 
+      messageTitle, state, createTime, 
+      messageContent)
+    values (#{id,jdbcType=BIGINT}, #{createdby,jdbcType=VARCHAR}, #{messagecode,jdbcType=VARCHAR}, 
+      #{messagetitle,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{messagecontent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.prj.bean.LeaveMessage" >
+    insert into leave_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdby != null" >
+        createdBy,
+      </if>
+      <if test="messagecode != null" >
+        messageCode,
+      </if>
+      <if test="messagetitle != null" >
+        messageTitle,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="messagecontent != null" >
+        messageContent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="messagecode != null" >
+        #{messagecode,jdbcType=VARCHAR},
+      </if>
+      <if test="messagetitle != null" >
+        #{messagetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="messagecontent != null" >
+        #{messagecontent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.prj.bean.LeaveMessage" >
+    update leave_message
+    <set >
+      <if test="createdby != null" >
+        createdBy = #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="messagecode != null" >
+        messageCode = #{messagecode,jdbcType=VARCHAR},
+      </if>
+      <if test="messagetitle != null" >
+        messageTitle = #{messagetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="messagecontent != null" >
+        messageContent = #{messagecontent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.prj.bean.LeaveMessage" >
+    update leave_message
+    set createdBy = #{createdby,jdbcType=VARCHAR},
+      messageCode = #{messagecode,jdbcType=VARCHAR},
+      messageTitle = #{messagetitle,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      messageContent = #{messagecontent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.prj.bean.LeaveMessage" >
+    update leave_message
+    set createdBy = #{createdby,jdbcType=VARCHAR},
+      messageCode = #{messagecode,jdbcType=VARCHAR},
+      messageTitle = #{messagetitle,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      createTime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.prj.mapper.AuUserMapper" >
+  <resultMap id="BaseResultMap" type="com.prj.bean.AuUser" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="loginCode" property="logincode" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="password2" property="password2" jdbcType="VARCHAR" />
+    <result column="userName" property="username" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="DATE" />
+    <result column="cardType" property="cardtype" jdbcType="VARCHAR" />
+    <result column="cardTypeName" property="cardtypename" jdbcType="VARCHAR" />
+    <result column="idCard" property="idcard" jdbcType="VARCHAR" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="userAddress" property="useraddress" jdbcType="VARCHAR" />
+    <result column="postCode" property="postcode" jdbcType="VARCHAR" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="referId" property="referid" jdbcType="BIGINT" />
+    <result column="referCode" property="refercode" jdbcType="VARCHAR" />
+    <result column="roleId" property="roleid" jdbcType="BIGINT" />
+    <result column="roleName" property="rolename" jdbcType="VARCHAR" />
+    <result column="userType" property="usertype" jdbcType="VARCHAR" />
+    <result column="userTypeName" property="usertypename" jdbcType="VARCHAR" />
+    <result column="isStart" property="isstart" jdbcType="INTEGER" />
+    <result column="lastUpdateTime" property="lastupdatetime" jdbcType="TIMESTAMP" />
+    <result column="lastLoginTime" property="lastlogintime" jdbcType="TIMESTAMP" />
+    <result column="bankAccount" property="bankaccount" jdbcType="VARCHAR" />
+    <result column="bankName" property="bankname" jdbcType="VARCHAR" />
+    <result column="accountHolder" property="accountholder" jdbcType="VARCHAR" />
+    <result column="idCardPicPath" property="idcardpicpath" jdbcType="VARCHAR" />
+    <result column="bankPicPath" property="bankpicpath" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, loginCode, password, password2, userName, sex, birthday, cardType, cardTypeName, 
+    idCard, country, mobile, email, userAddress, postCode, createTime, referId, referCode, 
+    roleId, roleName, userType, userTypeName, isStart, lastUpdateTime, lastLoginTime, 
+    bankAccount, bankName, accountHolder, idCardPicPath, bankPicPath
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from au_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from au_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.prj.bean.AuUser" >
+    insert into au_user (id, loginCode, password, 
+      password2, userName, sex, 
+      birthday, cardType, cardTypeName, 
+      idCard, country, mobile, 
+      email, userAddress, postCode, 
+      createTime, referId, referCode, 
+      roleId, roleName, userType, 
+      userTypeName, isStart, lastUpdateTime, 
+      lastLoginTime, bankAccount, bankName, 
+      accountHolder, idCardPicPath, bankPicPath
+      )
+    values (#{id,jdbcType=BIGINT}, #{logincode,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{password2,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=DATE}, #{cardtype,jdbcType=VARCHAR}, #{cardtypename,jdbcType=VARCHAR}, 
+      #{idcard,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{useraddress,jdbcType=VARCHAR}, #{postcode,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{referid,jdbcType=BIGINT}, #{refercode,jdbcType=VARCHAR}, 
+      #{roleid,jdbcType=BIGINT}, #{rolename,jdbcType=VARCHAR}, #{usertype,jdbcType=VARCHAR}, 
+      #{usertypename,jdbcType=VARCHAR}, #{isstart,jdbcType=INTEGER}, #{lastupdatetime,jdbcType=TIMESTAMP}, 
+      #{lastlogintime,jdbcType=TIMESTAMP}, #{bankaccount,jdbcType=VARCHAR}, #{bankname,jdbcType=VARCHAR}, 
+      #{accountholder,jdbcType=VARCHAR}, #{idcardpicpath,jdbcType=VARCHAR}, #{bankpicpath,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.prj.bean.AuUser" >
+    insert into au_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="logincode != null" >
+        loginCode,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="password2 != null" >
+        password2,
+      </if>
+      <if test="username != null" >
+        userName,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="cardtype != null" >
+        cardType,
+      </if>
+      <if test="cardtypename != null" >
+        cardTypeName,
+      </if>
+      <if test="idcard != null" >
+        idCard,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="useraddress != null" >
+        userAddress,
+      </if>
+      <if test="postcode != null" >
+        postCode,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="referid != null" >
+        referId,
+      </if>
+      <if test="refercode != null" >
+        referCode,
+      </if>
+      <if test="roleid != null" >
+        roleId,
+      </if>
+      <if test="rolename != null" >
+        roleName,
+      </if>
+      <if test="usertype != null" >
+        userType,
+      </if>
+      <if test="usertypename != null" >
+        userTypeName,
+      </if>
+      <if test="isstart != null" >
+        isStart,
+      </if>
+      <if test="lastupdatetime != null" >
+        lastUpdateTime,
+      </if>
+      <if test="lastlogintime != null" >
+        lastLoginTime,
+      </if>
+      <if test="bankaccount != null" >
+        bankAccount,
+      </if>
+      <if test="bankname != null" >
+        bankName,
+      </if>
+      <if test="accountholder != null" >
+        accountHolder,
+      </if>
+      <if test="idcardpicpath != null" >
+        idCardPicPath,
+      </if>
+      <if test="bankpicpath != null" >
+        bankPicPath,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="logincode != null" >
+        #{logincode,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="password2 != null" >
+        #{password2,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="cardtype != null" >
+        #{cardtype,jdbcType=VARCHAR},
+      </if>
+      <if test="cardtypename != null" >
+        #{cardtypename,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null" >
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="useraddress != null" >
+        #{useraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="referid != null" >
+        #{referid,jdbcType=BIGINT},
+      </if>
+      <if test="refercode != null" >
+        #{refercode,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null" >
+        #{roleid,jdbcType=BIGINT},
+      </if>
+      <if test="rolename != null" >
+        #{rolename,jdbcType=VARCHAR},
+      </if>
+      <if test="usertype != null" >
+        #{usertype,jdbcType=VARCHAR},
+      </if>
+      <if test="usertypename != null" >
+        #{usertypename,jdbcType=VARCHAR},
+      </if>
+      <if test="isstart != null" >
+        #{isstart,jdbcType=INTEGER},
+      </if>
+      <if test="lastupdatetime != null" >
+        #{lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastlogintime != null" >
+        #{lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bankaccount != null" >
+        #{bankaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="bankname != null" >
+        #{bankname,jdbcType=VARCHAR},
+      </if>
+      <if test="accountholder != null" >
+        #{accountholder,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardpicpath != null" >
+        #{idcardpicpath,jdbcType=VARCHAR},
+      </if>
+      <if test="bankpicpath != null" >
+        #{bankpicpath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.prj.bean.AuUser" >
+    update au_user
+    <set >
+      <if test="logincode != null" >
+        loginCode = #{logincode,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="password2 != null" >
+        password2 = #{password2,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="cardtype != null" >
+        cardType = #{cardtype,jdbcType=VARCHAR},
+      </if>
+      <if test="cardtypename != null" >
+        cardTypeName = #{cardtypename,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null" >
+        idCard = #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="useraddress != null" >
+        userAddress = #{useraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        postCode = #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="referid != null" >
+        referId = #{referid,jdbcType=BIGINT},
+      </if>
+      <if test="refercode != null" >
+        referCode = #{refercode,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null" >
+        roleId = #{roleid,jdbcType=BIGINT},
+      </if>
+      <if test="rolename != null" >
+        roleName = #{rolename,jdbcType=VARCHAR},
+      </if>
+      <if test="usertype != null" >
+        userType = #{usertype,jdbcType=VARCHAR},
+      </if>
+      <if test="usertypename != null" >
+        userTypeName = #{usertypename,jdbcType=VARCHAR},
+      </if>
+      <if test="isstart != null" >
+        isStart = #{isstart,jdbcType=INTEGER},
+      </if>
+      <if test="lastupdatetime != null" >
+        lastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastlogintime != null" >
+        lastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bankaccount != null" >
+        bankAccount = #{bankaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="bankname != null" >
+        bankName = #{bankname,jdbcType=VARCHAR},
+      </if>
+      <if test="accountholder != null" >
+        accountHolder = #{accountholder,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardpicpath != null" >
+        idCardPicPath = #{idcardpicpath,jdbcType=VARCHAR},
+      </if>
+      <if test="bankpicpath != null" >
+        bankPicPath = #{bankpicpath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.prj.bean.AuUser" >
+    update au_user
+    set loginCode = #{logincode,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      password2 = #{password2,jdbcType=VARCHAR},
+      userName = #{username,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=DATE},
+      cardType = #{cardtype,jdbcType=VARCHAR},
+      cardTypeName = #{cardtypename,jdbcType=VARCHAR},
+      idCard = #{idcard,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      userAddress = #{useraddress,jdbcType=VARCHAR},
+      postCode = #{postcode,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      referId = #{referid,jdbcType=BIGINT},
+      referCode = #{refercode,jdbcType=VARCHAR},
+      roleId = #{roleid,jdbcType=BIGINT},
+      roleName = #{rolename,jdbcType=VARCHAR},
+      userType = #{usertype,jdbcType=VARCHAR},
+      userTypeName = #{usertypename,jdbcType=VARCHAR},
+      isStart = #{isstart,jdbcType=INTEGER},
+      lastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
+      lastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP},
+      bankAccount = #{bankaccount,jdbcType=VARCHAR},
+      bankName = #{bankname,jdbcType=VARCHAR},
+      accountHolder = #{accountholder,jdbcType=VARCHAR},
+      idCardPicPath = #{idcardpicpath,jdbcType=VARCHAR},
+      bankPicPath = #{bankpicpath,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <!-- 登录 -->
+   <select id="login" resultType="com.prj.bean.AuUser" parameterType="com.prj.bean.AuUser" >
+    select * from au_user where loginCode = #{logincode} and password = #{password}
+  </select>
+  
+  <!-- 登录账户验证 -->
+  <select id="logincodeIsExist" resultType="java.lang.Integer" parameterType="com.prj.bean.AuUser" >
+    select count(1) from au_user
+    <trim prefix="where" prefixOverrides="and | or">
+    	<if test="logincode!=null">
+    		and loginCode=#{logincode}
+    	</if>
+    	<if test="id!=null">
+    		and id!=#{id}
+    	</if>
+    </trim>
+  </select>
+  
+  <!-- count -->
+  <select id="count" resultType="java.lang.Integer" parameterType="com.prj.bean.AuUser" >
+    select count(1) from au_user
+    <trim prefix="where" prefixOverrides="and | or">
+    	<if test="logincode!=null">
+    		and loginCode like concat('%',#{logincode},'%')
+    	</if>
+    	<if test="username!=null">
+    		and userName like concat('%',#{username},'%')
+    	</if>
+    	<if test="refercode!=null">
+    		and referCode like concat('%',#{refercode},'%')
+    	</if>
+    	
+    	<if test="roleid!=null">
+    		and roleId = #{roleid}
+    	</if>
+    	<if test="isstart!=null">
+    		and isStart = #{isstart}
+    	</if>
+    	<if test="referid!=null">
+    		and referId = #{referid}
+    	</if>
+    	<if test="usertype!=null">
+    		and userType = #{usertype}
+    	</if>
+    </trim>
+  </select>
+  
+  <!-- 登录账户验证 -->
+  <select id="queryUsersByPage" resultType="com.prj.bean.AuUser" parameterType="com.prj.bean.AuUser" >
+    select * from au_user
+    <trim prefix="where" prefixOverrides="and | or">
+    	<if test="logincode!=null">
+    		and loginCode like concat('%',#{logincode},'%')
+    	</if>
+    	<if test="username!=null">
+    		and userName like concat('%',#{username},'%')
+    	</if>
+    	<if test="refercode!=null">
+    		and referCode like concat('%',#{refercode},'%')
+    	</if>
+    	
+    	<if test="roleid!=null">
+    		and roleId = #{roleid}
+    	</if>
+    	<if test="isstart!=null">
+    		and isStart = #{isstart}
+    	</if>
+    	<if test="referid!=null">
+    		and referId = #{referid}
+    	</if>
+    	<if test="usertype!=null">
+    		and userType = #{usertype}
+    	</if>
+    </trim>
+    order by createTime desc limit #{startIndex},#{pageSize}
+  </select>
+  
+  
+  <update id="delUserPic" parameterType="com.prj.bean.AuUser">
+  	 update au_user
+  	 <set>
+  	 	<if test="idcardpicpath!=null">idCardPicPath = NULL</if>
+  	 	<if test="bankpicpath!=null">bankPicPath = NULL</if>
+  	 </set>
+  	 where id=#{id}
+  </update>
+  
+  
+  <!-- 根据roleid查询用户对象 -->
+  <!-- 登录账户验证 -->
+  <select id="queryUsersByRoleid" resultType="com.prj.bean.AuUser" parameterType="com.prj.bean.AuUser" >
+    select * from au_user
+    <trim prefix="where" prefixOverrides="and | or">
+    	<if test="roleid!=null">
+    		and roleId=#{roleid}
+    	</if>
+    </trim>
+  </select>
+  
+  <!-- 修改角色名称 -->
+  <update id="updateRolename" parameterType="com.prj.bean.AuUser">
+  	 update au_user set roleName = #{rolename}
+  	 	
+  	 where roleId=#{roleid}
+  </update>
+</mapper>

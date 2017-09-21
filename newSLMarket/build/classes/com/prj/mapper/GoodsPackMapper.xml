@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.prj.mapper.GoodsPackMapper" >
+  <resultMap id="BaseResultMap" type="com.prj.bean.GoodsPack" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="goodsPackName" property="goodspackname" jdbcType="VARCHAR" />
+    <result column="goodsPackCode" property="goodspackcode" jdbcType="VARCHAR" />
+    <result column="typeId" property="typeid" jdbcType="INTEGER" />
+    <result column="typeName" property="typename" jdbcType="VARCHAR" />
+    <result column="totalPrice" property="totalprice" jdbcType="DOUBLE" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="createdBy" property="createdby" jdbcType="VARCHAR" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="lastUpdateTime" property="lastupdatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.prj.bean.GoodsPack" extends="BaseResultMap" >
+    <result column="note" property="note" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, goodsPackName, goodsPackCode, typeId, typeName, totalPrice, state, num, createdBy, 
+    createTime, lastUpdateTime
+  </sql>
+  <sql id="Blob_Column_List" >
+    note
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from goods_pack
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from goods_pack
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.prj.bean.GoodsPack" >
+    insert into goods_pack (id, goodsPackName, goodsPackCode, 
+      typeId, typeName, totalPrice, 
+      state, num, createdBy, 
+      createTime, lastUpdateTime, note
+      )
+    values (#{id,jdbcType=BIGINT}, #{goodspackname,jdbcType=VARCHAR}, #{goodspackcode,jdbcType=VARCHAR}, 
+      #{typeid,jdbcType=INTEGER}, #{typename,jdbcType=VARCHAR}, #{totalprice,jdbcType=DOUBLE}, 
+      #{state,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, #{createdby,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{lastupdatetime,jdbcType=TIMESTAMP}, #{note,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.prj.bean.GoodsPack" >
+    insert into goods_pack
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="goodspackname != null" >
+        goodsPackName,
+      </if>
+      <if test="goodspackcode != null" >
+        goodsPackCode,
+      </if>
+      <if test="typeid != null" >
+        typeId,
+      </if>
+      <if test="typename != null" >
+        typeName,
+      </if>
+      <if test="totalprice != null" >
+        totalPrice,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="createdby != null" >
+        createdBy,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="lastupdatetime != null" >
+        lastUpdateTime,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="goodspackname != null" >
+        #{goodspackname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodspackcode != null" >
+        #{goodspackcode,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null" >
+        #{typeid,jdbcType=INTEGER},
+      </if>
+      <if test="typename != null" >
+        #{typename,jdbcType=VARCHAR},
+      </if>
+      <if test="totalprice != null" >
+        #{totalprice,jdbcType=DOUBLE},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastupdatetime != null" >
+        #{lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.prj.bean.GoodsPack" >
+    update goods_pack
+    <set >
+      <if test="goodspackname != null" >
+        goodsPackName = #{goodspackname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodspackcode != null" >
+        goodsPackCode = #{goodspackcode,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null" >
+        typeId = #{typeid,jdbcType=INTEGER},
+      </if>
+      <if test="typename != null" >
+        typeName = #{typename,jdbcType=VARCHAR},
+      </if>
+      <if test="totalprice != null" >
+        totalPrice = #{totalprice,jdbcType=DOUBLE},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="createdby != null" >
+        createdBy = #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastupdatetime != null" >
+        lastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.prj.bean.GoodsPack" >
+    update goods_pack
+    set goodsPackName = #{goodspackname,jdbcType=VARCHAR},
+      goodsPackCode = #{goodspackcode,jdbcType=VARCHAR},
+      typeId = #{typeid,jdbcType=INTEGER},
+      typeName = #{typename,jdbcType=VARCHAR},
+      totalPrice = #{totalprice,jdbcType=DOUBLE},
+      state = #{state,jdbcType=INTEGER},
+      num = #{num,jdbcType=INTEGER},
+      createdBy = #{createdby,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      lastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
+      note = #{note,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.prj.bean.GoodsPack" >
+    update goods_pack
+    set goodsPackName = #{goodspackname,jdbcType=VARCHAR},
+      goodsPackCode = #{goodspackcode,jdbcType=VARCHAR},
+      typeId = #{typeid,jdbcType=INTEGER},
+      typeName = #{typename,jdbcType=VARCHAR},
+      totalPrice = #{totalprice,jdbcType=DOUBLE},
+      state = #{state,jdbcType=INTEGER},
+      num = #{num,jdbcType=INTEGER},
+      createdBy = #{createdby,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      lastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  
+  <!-- 根据商品查询套餐集合 -->
+  <select id="queryGoodsPackByGoodsInfoId" parameterType="com.prj.bean.GoodsPackAffiliated" resultType="com.prj.bean.GoodsPack">
+     select * from goods_pack,goods_pack_affiliated where  goodsInfoId = #{goodsinfoid} and goods_pack.id = goods_pack_affiliated.goodsPackId
+  </select>
+  
+    <!-- count -->
+  <select id="count" resultType="java.lang.Integer" parameterType="com.prj.bean.GoodsPack" >
+    select count(1) from goods_pack
+    <trim prefix="where" prefixOverrides="and | or">
+    	<if test="goodspackname!=null">
+    		and goodsPackName like concat('%',#{goodspackname},'%')
+    	</if>
+    	<if test="typeid!=null">
+    		and typeId like concat('%',#{typeid},'%')
+    	</if>
+    	<if test="state!=null">
+    		and state like concat('%',#{state},'%')
+    	</if>
+    </trim>
+  </select>
+  
+    <!-- 登录账户验证 -->
+  <select id="queryGoodsPacksByPage" resultType="com.prj.bean.GoodsPack" parameterType="com.prj.bean.GoodsPack" >
+    select * from goods_pack
+    <trim prefix="where" prefixOverrides="and | or">
+    	<if test="goodspackname!=null">
+    		and goodsPackName like concat('%',#{goodspackname},'%')
+    	</if>
+    	<if test="typeid!=null">
+    		and typeId like concat('%',#{typeid},'%')
+    	</if>
+    	<if test="state!=null">
+    		and state like concat('%',#{state},'%')
+    	</if>
+    </trim>
+    order by lastUpdateTime desc limit #{startIndex},#{pageSize}
+  </select>
+</mapper>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.prj.mapper.AuFunctionMapper" >
+  <resultMap id="BaseResultMap" type="com.prj.bean.AuFunction" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="functionCode" property="functioncode" jdbcType="VARCHAR" />
+    <result column="functionName" property="functionname" jdbcType="VARCHAR" />
+    <result column="funcUrl" property="funcurl" jdbcType="VARCHAR" />
+    <result column="parentId" property="parentid" jdbcType="BIGINT" />
+    <result column="creationTime" property="creationtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, functionCode, functionName, funcUrl, parentId, creationTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from au_function
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from au_function
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.prj.bean.AuFunction" >
+    insert into au_function (id, functionCode, functionName, 
+      funcUrl, parentId, creationTime
+      )
+    values (#{id,jdbcType=BIGINT}, #{functioncode,jdbcType=VARCHAR}, #{functionname,jdbcType=VARCHAR}, 
+      #{funcurl,jdbcType=VARCHAR}, #{parentid,jdbcType=BIGINT}, #{creationtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.prj.bean.AuFunction" >
+    insert into au_function
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="functioncode != null" >
+        functionCode,
+      </if>
+      <if test="functionname != null" >
+        functionName,
+      </if>
+      <if test="funcurl != null" >
+        funcUrl,
+      </if>
+      <if test="parentid != null" >
+        parentId,
+      </if>
+      <if test="creationtime != null" >
+        creationTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="functioncode != null" >
+        #{functioncode,jdbcType=VARCHAR},
+      </if>
+      <if test="functionname != null" >
+        #{functionname,jdbcType=VARCHAR},
+      </if>
+      <if test="funcurl != null" >
+        #{funcurl,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=BIGINT},
+      </if>
+      <if test="creationtime != null" >
+        #{creationtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.prj.bean.AuFunction" >
+    update au_function
+    <set >
+      <if test="functioncode != null" >
+        functionCode = #{functioncode,jdbcType=VARCHAR},
+      </if>
+      <if test="functionname != null" >
+        functionName = #{functionname,jdbcType=VARCHAR},
+      </if>
+      <if test="funcurl != null" >
+        funcUrl = #{funcurl,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        parentId = #{parentid,jdbcType=BIGINT},
+      </if>
+      <if test="creationtime != null" >
+        creationTime = #{creationtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.prj.bean.AuFunction" >
+    update au_function
+    set functionCode = #{functioncode,jdbcType=VARCHAR},
+      functionName = #{functionname,jdbcType=VARCHAR},
+      funcUrl = #{funcurl,jdbcType=VARCHAR},
+      parentId = #{parentid,jdbcType=BIGINT},
+      creationTime = #{creationtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  
+  <!-- 获取主功能菜单 -->
+  <select id="queryMainFunctionList" resultType="com.prj.bean.AuFunction" parameterType="com.prj.bean.AuAuthority" >
+    	SELECT * FROM au_function WHERE id 
+    	IN (SELECT functionId FROM au_authority WHERE roleid=#{roleid} ) AND parentId=0
+  </select>
+   <!-- 获取子功能菜单 -->
+   <select id="querySubFunctionList" resultType="com.prj.bean.AuFunction" parameterType="com.prj.bean.AuFunction" >
+    	SELECT * FROM au_function WHERE id 
+    	IN (SELECT functionId FROM au_authority WHERE roleid=#{roleid} ) AND parentId=#{id}
+  </select>
+  
+   
+  
+   <!-- 获取 权限子功能菜单 -->
+   <select id="querySubauFunctionList" resultType="com.prj.bean.AuFunction" parameterType="com.prj.bean.AuFunction" >
+    	SELECT * FROM au_function WHERE parentId =#{id}
+  </select>
+  
+  <!-- getFunctionListByIn -->
+   <select id="getFunctionListByIn" resultType="com.prj.bean.AuFunction" parameterType="java.lang.String" >
+    	SELECT * FROM au_function WHERE id in(${value})
+    	or parentId in(select id from au_function where id in(${value}) and parentId >0)
+  		or parentId = 999
+  </select>
+</mapper>

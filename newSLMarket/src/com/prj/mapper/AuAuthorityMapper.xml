@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.prj.mapper.AuAuthorityMapper" >
+  <resultMap id="BaseResultMap" type="com.prj.bean.AuAuthority" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="roleId" property="roleid" jdbcType="BIGINT" />
+    <result column="functionId" property="functionid" jdbcType="BIGINT" />
+    <result column="userTypeId" property="usertypeid" jdbcType="BIGINT" />
+    <result column="creationTime" property="creationtime" jdbcType="TIMESTAMP" />
+    <result column="createdBy" property="createdby" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, roleId, functionId, userTypeId, creationTime, createdBy
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from au_authority
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from au_authority
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <!-- 根据roleid删除全部功能 -->
+  <delete id="deleteFunctionByRoleid" parameterType="java.lang.Long" >
+    delete from au_authority
+    where roleId = #{roleid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.prj.bean.AuAuthority" >
+    insert into au_authority (id, roleId, functionId, 
+      userTypeId, creationTime, createdBy
+      )
+    values (#{id,jdbcType=BIGINT}, #{roleid,jdbcType=BIGINT}, #{functionid,jdbcType=BIGINT}, 
+      #{usertypeid,jdbcType=BIGINT}, #{creationtime,jdbcType=TIMESTAMP}, #{createdby,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.prj.bean.AuAuthority" >
+    insert into au_authority
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="roleid != null" >
+        roleId,
+      </if>
+      <if test="functionid != null" >
+        functionId,
+      </if>
+      <if test="usertypeid != null" >
+        userTypeId,
+      </if>
+      <if test="creationtime != null" >
+        creationTime,
+      </if>
+      <if test="createdby != null" >
+        createdBy,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="roleid != null" >
+        #{roleid,jdbcType=BIGINT},
+      </if>
+      <if test="functionid != null" >
+        #{functionid,jdbcType=BIGINT},
+      </if>
+      <if test="usertypeid != null" >
+        #{usertypeid,jdbcType=BIGINT},
+      </if>
+      <if test="creationtime != null" >
+        #{creationtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.prj.bean.AuAuthority" >
+    update au_authority
+    <set >
+      <if test="roleid != null" >
+        roleId = #{roleid,jdbcType=BIGINT},
+      </if>
+      <if test="functionid != null" >
+        functionId = #{functionid,jdbcType=BIGINT},
+      </if>
+      <if test="usertypeid != null" >
+        userTypeId = #{usertypeid,jdbcType=BIGINT},
+      </if>
+      <if test="creationtime != null" >
+        creationTime = #{creationtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        createdBy = #{createdby,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.prj.bean.AuAuthority" >
+    update au_authority
+    set roleId = #{roleid,jdbcType=BIGINT},
+      functionId = #{functionid,jdbcType=BIGINT},
+      userTypeId = #{usertypeid,jdbcType=BIGINT},
+      creationTime = #{creationtime,jdbcType=TIMESTAMP},
+      createdBy = #{createdby,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 根据roleid查询功能列表 -->
+  <select id="queryAuthorityByRoleidAndFuncid" resultType="com.prj.bean.AuAuthority" parameterType="com.prj.bean.AuAuthority" >
+    select *
+    from au_authority
+    where roleId = #{roleid,jdbcType=BIGINT} and functionId = #{functionid}
+  </select>
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE configuration  
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+	
+<!-- 通过该配置完成了mybatis和数据库的连接 -->
+<configuration>
+	<!-- 定义别名 -->
+	<typeAliases>
+		<!-- 单独设定别名 -->
+		<!-- <typeAlias type="com.prj.bean.User" alias="user"/> -->
+		<!-- 
+			批量定义别名 
+			指定包名，mybatis会自动扫描包中的po类，自动定义别名，别名就是类名(首字母大写和小写都可以)	
+		-->
+		<package name="com.prj.bean"/>
+	</typeAliases>
+</configuration>

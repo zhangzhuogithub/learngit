@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="datasource"></property>
+	</bean>
+	
+	
+	<!-- 3.配置事务切点，并把切点和事务属性关联起来(一般情况下事务都配置在业务逻辑层面) -->
+	<!-- AOP事务处理  -->
+      <aop:aspectj-autoproxy/>
+      <aop:config proxy-target-class="true">
+      	<aop:pointcut expression="execution(* *com.prj.service..*(..))" id="transService"/>
+      	<aop:advisor advice-ref="txAdvice" pointcut-ref="transService"/>
+      </aop:config>
+      <!-- txAdvice:需要定义事务管理器，进行事务处理 -->
+      <tx:advice id="txAdvice"  transaction-manager="transactionManager">
+      	<tx:attributes>
+      		<tx:method name="hl*" propagation="REQUIRED" rollback-for="Exception"/>
+      	</tx:attributes>
+      </tx:advice>
+      
+     
+</beans>
